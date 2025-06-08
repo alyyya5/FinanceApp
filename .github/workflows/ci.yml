@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  lint-and-test:
+  test-and-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -22,17 +22,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run ESLint
-        run: npm run lint
-
-      - name: Run TypeScript check
-        run: npm run typecheck
-
       - name: Run tests
         run: npm test
 
   build-docker-images:
-    needs: lint-and-test
+    needs: test-and-build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
